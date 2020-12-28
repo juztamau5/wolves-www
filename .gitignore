@@ -1,0 +1,5 @@
+# These paths are used by the deployment system. See deploy.sh
+/build
+/downloads
+/extracted
+/html
