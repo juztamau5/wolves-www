@@ -1,0 +1,4 @@
+# Obtain the Wordpress configuration file and place it in this
+# directory
+wp-config.php
+
