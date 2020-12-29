@@ -2,7 +2,7 @@
 ################################################################################
 #
 #  Copyright (C) 2020 wolves.finance developers
-#  This file is part of wolves-www - https://github.com/wolvesofwallstreet/wolves-www
+#  This file is part of wolves-deploy - https://github.com/wolvesofwallstreet/wolves-deploy
 #
 #  SPDX-License-Identifier: Apache-2.0
 #  See the file LICENSE.txt for more information.
@@ -79,29 +79,21 @@ set -o nounset
 #   mysql> exit
 #
 # When the server is fully provisioned, clone the wolves-www repo to /var/www.
-# You can now run this script to generate /var/www/html. See the end of the
-# script for configuring wordpress after the script is run.
+# You can now run this script. See the end of the script for subsequent tasks.
 #
 
 # Get the absolute path to this script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-#
-# Define directories. Each build stage has a directory:
-#
-#   * /config     Storage for site configuration
-#   * /downloads  Storage for downloaded dependency archives
-#   * /extracted  Storage for extracted dependency archives
-#   * /build      Storage for files as the site is built
-#   * /html       The files for deployment
-#
+# Define directories
 CONFIG_DIR="${SCRIPT_DIR}/config"
+CONTENT_DIR="${SCRIPT_DIR}/wp-content"
 DOWNLOAD_DIR="${SCRIPT_DIR}/downloads"
 EXTRACT_DIR="${SCRIPT_DIR}/extracted"
 BUILD_DIR="${SCRIPT_DIR}/build"
 DEPLOY_DIR="${SCRIPT_DIR}/html"
 
-# Create build stage directories
+# Create directories
 mkdir -p "${DOWNLOAD_DIR}"
 mkdir -p "${EXTRACT_DIR}"
 mkdir -p "${BUILD_DIR}"
@@ -115,6 +107,22 @@ mkdir -p "${BUILD_DIR}"
 #   * All-in-One WP Migration plugin - https://en-gb.wordpress.org/plugins/all-in-one-wp-migration
 #   * All-in-One WP Migration File Extension plugin - https://import.wp-migration.com
 #   * phpMyAdmin (TODO: Make optional)
+#
+# TODO: What about the following plugins?
+#
+#   * classic-editor
+#   * cmb2
+#   * contact-form-7
+#   * duplicate-page
+#   * js_composer
+#   * lgx-owl-carousel
+#   * masterslider
+#   * sitepress-multilingual-cms
+#   * wordfence (requires ugly FS access, not currently possible)
+#   * wpml-media-translation
+#   * wpml-string-translation
+#   * wpml-translation-management
+#   * wps-hide-login
 #
 WORDPRESS_VERSION="latest"
 AIO_MIGRATION_VERSION="7.32"
@@ -142,7 +150,7 @@ unzip -o "${DOWNLOAD_DIR}/phpmyadmin.zip" -d "${EXTRACT_DIR}"
 # Clean build directory
 rm -rf "${BUILD_DIR}"/*
 
-# Install dependencies to build directory
+# Install dependencies
 cp -r "${EXTRACT_DIR}/wordpress"/* "${BUILD_DIR}"
 cp -r "${EXTRACT_DIR}/all-in-one-wp-migration" "${BUILD_DIR}/wp-content/plugins"
 cp -r "${EXTRACT_DIR}/all-in-one-wp-migration-file-extension" "${BUILD_DIR}/wp-content/plugins"
@@ -151,6 +159,12 @@ cp -r "${EXTRACT_DIR}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages" "${BUILD_D
 # Create writable folders for dependencies
 mkdir -p "${BUILD_DIR}/wp-content/ai1wm-backups"
 mkdir -p "${BUILD_DIR}/wp-content/plugins/all-in-one-wp-migration/storage"
+
+# Install content (TODO: switch plugins to dependency management)
+#cp -r "${CONTENT_DIR}/languages" "${BUILD_DIR}/wp-content"
+#cp -r "${CONTENT_DIR}/plugins" "${BUILD_DIR}/wp-content"
+#cp -r "${CONTENT_DIR}/themes" "${BUILD_DIR}/wp-content"
+#cp -r "${CONTENT_DIR}/uploads" "${BUILD_DIR}/wp-content"
 
 # Remove unused plugins and themes
 rm -rf "${BUILD_DIR}/wp-content/plugins/akismet"
