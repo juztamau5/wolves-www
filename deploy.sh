@@ -78,6 +78,46 @@ set -o nounset
 #   mysql> FLUSH PRIVILEGES;
 #   mysql> exit
 #
+# To set up the SFTP server, modify /etc/ssh/sshd_config. It's recommended to
+# make a backup before:
+#
+#   cp /etc/ssh/sshd_config /etc/ssh/sshd_config-backup
+#   nano /etc/ssh/sshd_config
+#
+# Scroll to the bottom of the file and comment out the line `Subsystem sftp`,
+# then add the internal-sftp subsystem:
+#
+#   #Subsystem sftp /usr/lib/openssh/sftp-server
+#   Subsystem sftp internal-sftp
+#
+# Create a new SFTP user with the same name as the MySQL user and primary group
+# www-data, then set its password to the same as the MySQL user:
+#
+#   useradd -g www-data -d /var/www/html -s /sbin/nologin <DB_USER>
+#   passwd <DB_USER>
+#
+# Add the `Match Group` directive in SSH config (/etc/ssh/sshd_config):
+#
+#   Match Group www-data
+#        ChrootDirectory %h
+#        AllowTcpForwarding no
+#        AcceptEnv
+#        X11Forwarding no
+#        ForceCommand internal-sftp
+#        PasswordAuthentication yes
+#
+# Test SSH config before restarting (run as root):
+#
+#   sshd -t
+#
+# If no errors, restart the sshd service for changes to take affect (run as
+# root):
+#
+#   service sshd restart
+#
+# Try logging in with SFTP with your new user. It should be able to create files
+# as itself which are readable by www-data.
+#
 # When the server is fully provisioned, clone the wolves-www repo to /var/www.
 # You can now run this script to generate /var/www/html. See the end of the
 # script for configuring wordpress after the script is run.
@@ -168,6 +208,9 @@ cp -r -p "${BUILD_DIR}" "${DEPLOY_DIR}"
 
 # Set permissions on deployed files
 chown -R www-data:www-data "${DEPLOY_DIR}"
+find "${DEPLOY_DIR}" -type d -exec chmod 775 {} \;
+find "${DEPLOY_DIR}" -type f -exec chmod 664 {} \;
+find "${DEPLOY_DIR}" -type d -exec chmod g+s {} \;
 
 #
 # If setting up WP for the first time, enter the following information:
