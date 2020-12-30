@@ -22,8 +22,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-16.04
+            node-version: 14
           - os: ubuntu-18.04
+            node-version: 14
           - os: ubuntu-20.04
+            node-version: 14
 
     # Steps represent a sequence of tasks that will be executed as part of the
     # job
@@ -35,6 +38,11 @@ jobs:
         # access it
       - name: Checkout main repo
         uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Create fake wp-config.php
         run: touch config/wp-config.php

@@ -129,6 +129,13 @@ EXCLUDE_PHPMYADMIN=true
 # Try logging in with SFTP with your new user. It should be able to create files
 # as itself which are readable by www-data.
 #
+# In order to build the dapp, you will need NVM, Node and Yarn. Follow the
+# instructions to install NVM (not printed here due to bash piping). Then,
+# install Node 14 and Yarn:
+#
+#   nvm install 14
+#   npm install -g yarn
+#
 # When the server is fully provisioned, you can now run this script to generate
 # /var/www/html. The site can be deployed with the "push-website.sh" script
 # and changes in WP content can be synced back to the repo with
@@ -191,10 +198,12 @@ fi
 #
 WORDPRESS_VERSION="5.6"
 PHPMYADMIN_VERSION="5.0.4"
+WOLVES_DAPP_VERSION="master"
 
 # Dependency URLs
 WORDPRESS_URL="https://wordpress.org/wordpress-${WORDPRESS_VERSION}.zip"
 PHPMYADMIN_URL="https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages.zip"
+WOLVES_DAPP_URL="https://github.com/wolvesofwallstreet/wolves.finance/archive/${WOLVES_DAPP_VERSION}.zip"
 
 # Download dependencies
 # TODO: Retry several times if a 404 is given (wget exits with code 8)
@@ -202,11 +211,22 @@ PHPMYADMIN_URL="https://files.phpmyadmin.net/phpMyAdmin/${PHPMYADMIN_VERSION}/ph
 echo "Downloading dependencies..."
 wget --no-show-progress "${WORDPRESS_URL}" -O "${DOWNLOAD_DIR}/wordpress-${WORDPRESS_VERSION}.zip"
 $EXCLUDE_PHPMYADMIN || wget --no-show-progress "${PHPMYADMIN_URL}" -O "${DOWNLOAD_DIR}/phpmyadmin-${PHPMYADMIN_VERSION}.zip"
+wget "${WOLVES_DAPP_URL}" -O "${DOWNLOAD_DIR}/wolves-dapp-${WOLVES_DAPP_VERSION}.zip"
 
 # Extract dependencies
 echo "Extracting dependencies..."
 unzip -o "${DOWNLOAD_DIR}/wordpress-${WORDPRESS_VERSION}.zip" -d "${EXTRACT_DIR}"
 $EXCLUDE_PHPMYADMIN || unzip -o "${DOWNLOAD_DIR}/phpmyadmin-${PHPMYADMIN_VERSION}.zip" -d "${EXTRACT_DIR}"
+unzip -o "${DOWNLOAD_DIR}/wolves-dapp-${WOLVES_DAPP_VERSION}.zip" -d "${EXTRACT_DIR}"
+
+# Build Wolves dapp
+(
+  cd "${EXTRACT_DIR}/wolves.finance-${WOLVES_DAPP_VERSION}"
+  yarn install
+  yarn run audit
+  yarn compile
+  yarn build
+)
 
 # Clean build directory
 echo "Cleaning build directory..."
