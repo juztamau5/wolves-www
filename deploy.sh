@@ -90,12 +90,14 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Define directories. Each build stage has a directory:
 #
 #   * /config     Storage for site configuration
+#   * /wp-content WordPress content (plugins, themes, etc) to install
 #   * /downloads  Storage for downloaded dependency archives
 #   * /extracted  Storage for extracted dependency archives
 #   * /build      Storage for files as the site is built
 #   * /html       The files for deployment
 #
 CONFIG_DIR="${SCRIPT_DIR}/config"
+CONTENT_DIR="${SCRIPT_DIR}/wp-content"
 DOWNLOAD_DIR="${SCRIPT_DIR}/downloads"
 EXTRACT_DIR="${SCRIPT_DIR}/extracted"
 BUILD_DIR="${SCRIPT_DIR}/build"
@@ -115,6 +117,22 @@ mkdir -p "${BUILD_DIR}"
 #   * All-in-One WP Migration plugin - https://en-gb.wordpress.org/plugins/all-in-one-wp-migration
 #   * All-in-One WP Migration File Extension plugin - https://import.wp-migration.com
 #   * phpMyAdmin (TODO: Make optional)
+#
+# TODO: What about the following plugins?
+#
+#   * classic-editor
+#   * cmb2
+#   * contact-form-7
+#   * duplicate-page
+#   * js_composer
+#   * lgx-owl-carousel
+#   * masterslider
+#   * sitepress-multilingual-cms
+#   * wordfence (requires ugly FS access, not currently possible)
+#   * wpml-media-translation
+#   * wpml-string-translation
+#   * wpml-translation-management
+#   * wps-hide-login
 #
 WORDPRESS_VERSION="latest"
 AIO_MIGRATION_VERSION="7.32"
@@ -151,6 +169,12 @@ cp -r "${EXTRACT_DIR}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages" "${BUILD_D
 # Create writable folders for dependencies
 mkdir -p "${BUILD_DIR}/wp-content/ai1wm-backups"
 mkdir -p "${BUILD_DIR}/wp-content/plugins/all-in-one-wp-migration/storage"
+
+# Install content (TODO: switch plugins to dependency management?)
+cp -r "${CONTENT_DIR}/languages" "${BUILD_DIR}/wp-content"
+cp -r "${CONTENT_DIR}/plugins" "${BUILD_DIR}/wp-content"
+cp -r "${CONTENT_DIR}/themes" "${BUILD_DIR}/wp-content"
+cp -r "${CONTENT_DIR}/uploads" "${BUILD_DIR}/wp-content"
 
 # Remove unused plugins and themes
 rm -rf "${BUILD_DIR}/wp-content/plugins/akismet"
