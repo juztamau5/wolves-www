@@ -26,21 +26,21 @@ set -o nounset
 #
 # After provisioning the server, install the following dependencies:
 #
-#   apt install apache2 curl libapache2-mod-php mysql-server php-mysql php7.4 unzip wget zip
+#   sudo apt install apache2 curl libapache2-mod-php mysql-server php-mysql php7.4 unzip wget zip
 #
 # You should secure Apache with Let's Encrypt. Install Cerbot:
 #
-#   apt install certbot python3-certbot-apache
+#   sudo apt install certbot python3-certbot-apache
 #
-# Configure the Firewall for Apache access (run as root):
+# Configure the Firewall for Apache access:
 #
-#   ufw allow ssh
-#   ufw allow 'Apache Full'
-#   ufw enable
+#   sudo ufw allow ssh
+#   sudo ufw allow 'Apache Full'
+#   sudo ufw enable
 #
-# Obtain an SSL certificate for the desired domains (run as root):
+# Obtain an SSL certificate for the desired domains:
 #
-#   certbot --apache -d <DOMAIN> [-d <DOMAIN> ...]
+#   sudo certbot --apache -d <DOMAIN> [-d <DOMAIN> ...]
 #
 # I used the following options:
 #
@@ -50,9 +50,9 @@ set -o nounset
 #   2
 #
 # If MySQL hasn't been configured yet, you'll want to run the DBMS's included
-# security script (run as root):
+# security script:
 #
-#   mysql_secure_installation
+#   sudo mysql_secure_installation
 #
 # I used the following options:
 #
@@ -66,9 +66,9 @@ set -o nounset
 #   Y
 #   Y
 #
-# Enter the MySQL CLI as root:
+# Enter the MySQL CLI:
 #
-#   mysql
+#   sudo mysql
 #
 # Create the user and database (substituting variables from wp-config.php):
 #
@@ -81,8 +81,8 @@ set -o nounset
 # To set up the SFTP server, modify /etc/ssh/sshd_config. It's recommended to
 # make a backup before:
 #
-#   cp /etc/ssh/sshd_config /etc/ssh/sshd_config-backup
-#   nano /etc/ssh/sshd_config
+#   sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config-backup
+#   sudo nano /etc/ssh/sshd_config
 #
 # Scroll to the bottom of the file and comment out the line `Subsystem sftp`,
 # then add the internal-sftp subsystem:
@@ -93,8 +93,8 @@ set -o nounset
 # Create a new SFTP user with the same name as the MySQL user and primary group
 # www-data, then set its password to the same as the MySQL user:
 #
-#   useradd -g www-data -d /var/www/html -s /sbin/nologin <DB_USER>
-#   passwd <DB_USER>
+#   sudo useradd -g www-data -d /var/www/html -s /sbin/nologin <DB_USER>
+#   sudo passwd <DB_USER>
 #
 # Add the `Match Group` directive in SSH config (/etc/ssh/sshd_config):
 #
@@ -106,14 +106,13 @@ set -o nounset
 #        ForceCommand internal-sftp
 #        PasswordAuthentication yes
 #
-# Test SSH config before restarting (run as root):
+# Test SSH config before restarting:
 #
 #   sshd -t
 #
-# If no errors, restart the sshd service for changes to take affect (run as
-# root):
+# If no errors, restart the sshd service for changes to take affect:
 #
-#   service sshd restart
+#   sudo service sshd restart
 #
 # Try logging in with SFTP with your new user. It should be able to create files
 # as itself which are readable by www-data.
@@ -203,14 +202,14 @@ rm -rf "${BUILD_DIR}/wp-content/themes/twentytwentyone"
 cp "${CONFIG_DIR}/wp-config.php" "${BUILD_DIR}"
 
 # Replace the html directory with the fresh WordPress deployment
-rm -rf "${DEPLOY_DIR}"
-cp -r -p "${BUILD_DIR}" "${DEPLOY_DIR}"
+sudo rm -rf "${DEPLOY_DIR}"
+cp -r "${BUILD_DIR}" "${DEPLOY_DIR}"
 
 # Set permissions on deployed files
-chown -R www-data:www-data "${DEPLOY_DIR}"
 find "${DEPLOY_DIR}" -type d -exec chmod 775 {} \;
 find "${DEPLOY_DIR}" -type f -exec chmod 664 {} \;
 find "${DEPLOY_DIR}" -type d -exec chmod g+s {} \;
+sudo chown -R www-data:www-data "${DEPLOY_DIR}"
 
 #
 # If setting up WP for the first time, enter the following information:
