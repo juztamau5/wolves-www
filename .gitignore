@@ -1,8 +1,10 @@
 # These paths are used by the deployment system. See deploy.sh
 /build
+/build-presale
 /downloads
 /extracted
 /html
+/html-presale
 
 # Wordfence logs go here (obtain from a team member)
 /wp-content/wflogs
