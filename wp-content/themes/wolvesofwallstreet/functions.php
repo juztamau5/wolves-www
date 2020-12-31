@@ -132,7 +132,7 @@ function weaversweb_scripts(){
     wp_enqueue_script('weaversweb-fancybox-script',get_template_directory_uri().'/js/jquery.fancybox.min.js',array('jquery'),'20201217',true);
 	wp_enqueue_script('weaversweb-fontawesome-script',get_template_directory_uri().'/js/fontawesome-all.min.js',array('jquery'),'20201217',true);
 	wp_enqueue_script('weaversweb-script',get_template_directory_uri().'/js/main.js',array('jquery'),'20201217',true);
-	wp_localize_script( 'weaversweb-script', 'weaversAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'TimerDate' => get_theme_value('weaversweb_datetime_timer') ) );
+	wp_localize_script( 'weaversweb-script', 'weaversAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'TimerDate' => get_theme_value('weaversweb_datetime_timer'), 'LangSwitch' => (ICL_LANGUAGE_CODE == "en")? 1 : 0 ) );
 	}
 add_action('wp_enqueue_scripts','weaversweb_scripts');
 add_filter('comments_template','legacy_comments');

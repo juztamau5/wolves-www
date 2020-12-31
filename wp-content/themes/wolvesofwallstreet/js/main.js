@@ -213,7 +213,11 @@ jQuery("a.modal-btn").fancybox();
 });    
 
 function hashRedirect(hash) {
-    var baseUrl = window.location.protocol + "//" + window.location.host;
+	if(weaversAjax.LangSwitch == 1){
+    	var baseUrl = window.location.protocol + "//" + window.location.host;
+	}else{
+		var baseUrl = window.location.protocol + "//" + window.location.host + "/?lang=zh-hant";
+	}
     if (jQuery('body').hasClass( "home" )) {
         event.preventDefault(); // Prevent default anchor click behavior  
         var offSet = 100;
