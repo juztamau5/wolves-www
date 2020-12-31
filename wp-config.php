@@ -1,4 +1,5 @@
 <?php
+// phpinfo();
 /**
  * The base configuration for WordPress
  *
