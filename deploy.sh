@@ -220,6 +220,25 @@ rm -rf "${BUILD_DIR}/wp-content/themes/twentytwentyone"
 # Also remove the readme, which gets renamed by WP to prevent access
 rm "${BUILD_DIR}/readme.html"
 
+# Install WP content
+echo "Installing AiO backup data..."
+cp -r "${CONTENT_DIR}"/ai1wm-backups "${BUILD_DIR}/wp-content"
+
+echo "Installing languages..."
+cp -r "${CONTENT_DIR}"/languages "${BUILD_DIR}/wp-content"
+
+echo "Installing languages..."
+cp -r "${CONTENT_DIR}"/plugins "${BUILD_DIR}/wp-content"
+
+echo "Installing themes..."
+cp -r "${CONTENT_DIR}"/themes "${BUILD_DIR}/wp-content"
+
+echo "Installing uploads..."
+cp -r "${CONTENT_DIR}"/uploads "${BUILD_DIR}/wp-content"
+
+echo "Installing Wordfence data..."
+cp -r "${CONTENT_DIR}"/wflogs "${BUILD_DIR}/wp-content"
+
 # Install WP config
 echo "Installing WordPress config..."
 cp "${CONFIG_DIR}/.htaccess" "${BUILD_DIR}"
