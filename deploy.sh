@@ -29,7 +29,7 @@ EXCLUDE_PHPMYADMIN=true
 #
 # After provisioning the server, install the following dependencies:
 #
-#   sudo apt install apache2 curl libapache2-mod-php mysql-server php7.4 php7.4-mbstring php7.4-mysql php7.4-xml unzip wget zip
+#   sudo apt install apache2 curl libapache2-mod-php mysql-server php7.4 php7.4-curl php7.4-mbstring php7.4-mysql php7.4-xml unzip wget zip
 #
 # You should secure Apache with Let's Encrypt. Install Cerbot:
 #
