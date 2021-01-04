@@ -120,9 +120,8 @@ EXCLUDE_PHPMYADMIN=true
 # Try logging in with SFTP with your new user. It should be able to create files
 # as itself which are readable by www-data.
 #
-# When the server is fully provisioned, clone the wolves-www repo to /var/www.
-# You can now run this script to generate /var/www/html. The site can be
-# deployed with rsync (run from repo root):
+# When the server is fully provisioned, you can now run this script to generate
+# /var/www/html. The site can be deployed with rsync (run from repo root):
 #
 #   rsync -avP --delete ./html root@<DOMAIN>:/var/www
 #
