@@ -221,9 +221,6 @@ rm -rf "${BUILD_DIR}/wp-content/themes/twentytwentyone"
 rm "${BUILD_DIR}/readme.html"
 
 # Install WP content
-echo "Installing AiO backup data..."
-cp -r "${CONTENT_DIR}"/ai1wm-backups "${BUILD_DIR}/wp-content"
-
 echo "Installing languages..."
 cp -r "${CONTENT_DIR}"/languages "${BUILD_DIR}/wp-content"
 
