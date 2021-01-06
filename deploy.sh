@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 #
-#  Copyright (C) 2020 wolves.finance developers
+#  Copyright (C) 2020 The Wolfpack
 #  This file is part of wolves-www - https://github.com/wolvesofwallstreet/wolves-www
 #
 #  SPDX-License-Identifier: Apache-2.0
@@ -18,8 +18,12 @@ set -o nounset
 EXCLUDE_PHPMYADMIN=true
 
 #
-# This deployment script is intended to install the wolves.finance website
-# on a fresh Linux server.
+# This deployment script is intended to generate an installable WordPress
+# website for deployment to a Linux server.
+#
+# The documentation below will help provision the server. Running this script
+# generates the html/ folder for deployment. See the "pull-content.sh" and
+# "push-website.sh" sister scripts for file syncing.
 #
 # You will need the following items:
 #
@@ -124,16 +128,10 @@ EXCLUDE_PHPMYADMIN=true
 # Try logging in with SFTP with your new user. It should be able to create files
 # as itself which are readable by www-data.
 #
-# When the server is fully provisioned, clone the wolves-www repo to /var/www.
-# You can now run this script to generate /var/www/html. The site can be
-# deployed with rsync (run from repo root):
-#
-#   rsync -avP --delete ./html root@<DOMAIN>:/var/www
-#
-# When changes have been made to the content on the server, they can be synced
-# back to the repo (run from repo root):
-#
-#   rsync -avP --delete root@<DOMAIN>:/var/www/html/wp-content .
+# When the server is fully provisioned, you can now run this script to generate
+# /var/www/html. The site can be deployed with the "push-website.sh" script
+# and changes in WP content can be synced back to the repo with
+# "pull-content.sh".
 #
 # If setting up WP for the first time, enter the following information:
 #
