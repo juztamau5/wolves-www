@@ -28,6 +28,7 @@ EXCLUDE_PHPMYADMIN=true
 # You will need the following items:
 #
 #   * wp-config.php - Obtain from team member and place in config/
+#   * wflogs/ - Obtain from team member and place in project root folder
 #   * WordPress username/password
 #   * Database migration file - wolves.dxvert.com-20201228-103745-x2hnnl.wpress
 #
@@ -155,6 +156,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #   * /html       The files for deployment
 #
 CONFIG_DIR="${SCRIPT_DIR}/config"
+WORDFENCE_DIR="${SCRIPT_DIR}/wflogs"
 CONTENT_DIR="${SCRIPT_DIR}/wp-content"
 DOWNLOAD_DIR="${SCRIPT_DIR}/downloads"
 EXTRACT_DIR="${SCRIPT_DIR}/extracted"
@@ -169,6 +171,12 @@ mkdir -p "${BUILD_DIR}"
 # Check for required config file
 if [ ! -f "${CONFIG_DIR}/wp-config.php" ]; then
   echo "You must provide wp-config.php. Place it in the config/ directory"
+  exit 1
+fi
+
+# Check for required Wordfence logs
+if [ ! -d "${WORDFENCE_DIR}" ]; then
+  echo "You must provide wflogs. Place it in the project root directory"
   exit 1
 fi
 
@@ -236,6 +244,9 @@ cp -r "${CONTENT_DIR}"/themes "${BUILD_DIR}/wp-content"
 
 echo "Installing uploads..."
 cp -r "${CONTENT_DIR}"/uploads "${BUILD_DIR}/wp-content"
+
+echo "Installing Wordfence logs..."
+cp -r "${WORDFENCE_DIR}" "${BUILD_DIR}/wp-content"
 
 # Install WP config
 echo "Installing WordPress config..."
