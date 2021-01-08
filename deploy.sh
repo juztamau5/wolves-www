@@ -218,7 +218,6 @@ cp -r "${EXTRACT_DIR}/wordpress"/* "${BUILD_DIR}"
 $EXCLUDE_PHPMYADMIN || cp -r "${EXTRACT_DIR}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages" "${BUILD_DIR}/phpmyadmin"
 
 # Create writable folders for dependencies
-mkdir -p "${BUILD_DIR}/wp-content/ai1wm-backups"
 mkdir -p "${BUILD_DIR}/wp-content/plugins/all-in-one-wp-migration/storage"
 mkdir -p "${BUILD_DIR}/wp-content/upgrade"
 
