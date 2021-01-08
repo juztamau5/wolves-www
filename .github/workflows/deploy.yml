@@ -40,7 +40,7 @@ jobs:
         run: touch config/wp-config.php
 
       - name: Create fake wflogs/
-        run: mkdir -p wflogs
+        run: mkdir -p wp-content/wflogs
 
       - name: Deploy website
         run: ./deploy.sh

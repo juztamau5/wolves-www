@@ -28,9 +28,9 @@ EXCLUDE_PHPMYADMIN=true
 # You will need the following items:
 #
 #   * wp-config.php - Obtain from team member and place in config/
-#   * wflogs/ - Obtain from team member and place in project root folder
+#   * wflogs/ - Obtain from team member and place in wp-content/
 #   * WordPress username/password
-#   * Database migration file - wolves.dxvert.com-20201228-103745-x2hnnl.wpress
+#   * Database dump - Obtain from team member and import into MySQL
 #
 # After provisioning the server, install the following dependencies:
 #
@@ -148,16 +148,17 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 #
 # Define directories. Each build stage has a directory:
 #
-#   * /config     Storage for site configuration
-#   * /wp-content WordPress content (plugins, themes, etc) to install
-#   * /downloads  Storage for downloaded dependency archives
-#   * /extracted  Storage for extracted dependency archives
-#   * /build      Storage for files as the site is built
-#   * /html       The files for deployment
+#   * /config            Storage for site configuration
+#   * /wp-content        WordPress content (plugins, themes, etc) to install
+#   * /wp-content/wflogs Place Wordfence logs here
+#   * /downloads         Storage for downloaded dependency archives
+#   * /extracted         Storage for extracted dependency archives
+#   * /build             Storage for files as the site is built
+#   * /html              The files for deployment
 #
 CONFIG_DIR="${SCRIPT_DIR}/config"
-WORDFENCE_DIR="${SCRIPT_DIR}/wflogs"
 CONTENT_DIR="${SCRIPT_DIR}/wp-content"
+WORDFENCE_DIR="${CONTENT_DIR}/wflogs"
 DOWNLOAD_DIR="${SCRIPT_DIR}/downloads"
 EXTRACT_DIR="${SCRIPT_DIR}/extracted"
 BUILD_DIR="${SCRIPT_DIR}/build"
