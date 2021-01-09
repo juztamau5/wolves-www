@@ -187,7 +187,7 @@ fi
 # This script depends on the following dependencies:
 #
 #   * WordPress - https://wordpress.org
-#   * phpMyAdmin (TODO: Make optional)
+#   * phpMyAdmin (optional)
 #
 WORDPRESS_VERSION="5.6"
 PHPMYADMIN_VERSION="5.0.4"
