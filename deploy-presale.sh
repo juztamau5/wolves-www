@@ -60,7 +60,9 @@ mkdir -p "${BUILD_DIR}"
 # TODO: Retry several times if a 404 is given (wget exits with code 8)
 # A 404 occurred once with wordpress.com
 echo "Downloading dapp source..."
-wget "${WOLVES_DAPP_URL}" -O "${DOWNLOAD_DIR}/wolves-dapp-${WOLVES_DAPP_VERSION}.zip"
+if [ ! -f "${DOWNLOAD_DIR}/wolves-dapp-${WOLVES_DAPP_VERSION}.zip" ]; then
+  wget "${WOLVES_DAPP_URL}" -O "${DOWNLOAD_DIR}/wolves-dapp-${WOLVES_DAPP_VERSION}.zip"
+fi
 
 # Extract dependencies
 echo "Extracting dapp source..."
