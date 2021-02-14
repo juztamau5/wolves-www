@@ -288,5 +288,5 @@ find "${DEPLOY_DIR}" -type d -exec chmod g+s {} \;
 sudo chown -R www-data:www-data "${DEPLOY_DIR}"
 
 echo
-echo "Deployment complete"
+echo "Website deployment complete"
 echo
