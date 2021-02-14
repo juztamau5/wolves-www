@@ -24,7 +24,7 @@ set -o pipefail
 set -o nounset
 
 # Dapp version
-WOLVES_DAPP_VERSION="91b51fd8686dbb94943433e8bf799bfed35bacf8"
+WOLVES_DAPP_VERSION="315e08bd9919d2786d76785c899c8ae86dce319d"
 
 # Dapp URL
 WOLVES_DAPP_URL="https://github.com/wolvesofwallstreet/wolves.finance/archive/${WOLVES_DAPP_VERSION}.zip"
