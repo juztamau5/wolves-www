@@ -210,11 +210,11 @@ $EXCLUDE_PHPMYADMIN || unzip -o "${DOWNLOAD_DIR}/phpmyadmin-${PHPMYADMIN_VERSION
 
 # Clean build directory
 echo "Cleaning build directory..."
-rm -rf "${BUILD_DIR}"/*
+rm -rf "${BUILD_DIR}"
 
 # Install dependencies to build directory
 echo "Installing dependencies..."
-cp -r "${EXTRACT_DIR}/wordpress"/* "${BUILD_DIR}"
+cp -r "${EXTRACT_DIR}/wordpress" "${BUILD_DIR}"
 $EXCLUDE_PHPMYADMIN || cp -r "${EXTRACT_DIR}/phpMyAdmin-${PHPMYADMIN_VERSION}-all-languages" "${BUILD_DIR}/phpmyadmin"
 
 # Create writable folders for dependencies
