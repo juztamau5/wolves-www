@@ -3,7 +3,7 @@
 # deployed to the web server.
 ################################################################################
 
-name: Deployment CI
+name: Website CI
 
 # Controls when the action will run. Triggers the workflow on push or pull
 # request events
@@ -43,4 +43,4 @@ jobs:
         run: mkdir -p wp-content/wflogs
 
       - name: Deploy website
-        run: ./deploy.sh
+        run: ./deploy-website.sh
