@@ -29,6 +29,10 @@ WOLVES_DAPP_VERSION="91b51fd8686dbb94943433e8bf799bfed35bacf8"
 # Dapp URL
 WOLVES_DAPP_URL="https://github.com/wolvesofwallstreet/wolves.finance/archive/${WOLVES_DAPP_VERSION}.zip"
 
+# API key for Etherscan
+# Obtain one at https://etherscan.io/
+REACT_APP_INFURA_ID=
+
 # Get the absolute path to this script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -73,6 +77,7 @@ cp -r "${EXTRACT_DIR}/wolves.finance-${WOLVES_DAPP_VERSION}" "${BUILD_DIR}"
 # Build Wolves dapp
 echo "Building presale dapp..."
 (
+  export REACT_APP_INFURA_ID="${REACT_APP_INFURA_ID}"
   cd "${BUILD_DIR}"
   yarn install
   yarn run audit
