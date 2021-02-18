@@ -61,6 +61,23 @@ EXCLUDE_PHPMYADMIN=true
 #   N
 #   2
 #
+# When the site is behind Cloudflare DDoS protection, a certbot plugin must be
+# used:
+#
+#   sudo apt install python3-certbot-dns-cloudflare
+#
+# Create a ~/cloudflare.ini file:
+#
+#   # Cloudflare API key used by Certbot
+#   dns_cloudflare_api_key = <Cloudflare global API key>
+#   dns_cloudflare_email = <Cloudflare email>
+#
+# Then call certbot with the Cloudflare plugin:
+#
+#   certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/cloudflare.ini -d <DOMAIN> [-d <DOMAIN> ...]
+#
+# Point Apache at the certs generated with the Cloudflare plugin.
+#
 # If MySQL hasn't been configured yet, you'll want to run the DBMS's included
 # security script:
 #
