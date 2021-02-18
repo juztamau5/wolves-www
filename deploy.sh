@@ -34,11 +34,11 @@ EXCLUDE_PHPMYADMIN=true
 #
 # After provisioning the server, install the following dependencies:
 #
-#   sudo apt install apache2 curl libapache2-mod-php mysql-server php7.4 php7.4-curl php7.4-mbstring php7.4-mysql php7.4-xml unzip wget zip
+#   sudo apt install apache2 curl libapache2-mod-php mysql-server php php-curl php-mbstring php-mysql php-xml unzip wget zip
 #
 # WordPress will also be happier with all PHP modules installed:
 #
-#   sudo apt install imagick php7.4-bcmath php7.4-bz2 php7.4-cgi php7.4-cli php7.4-common php7.4-curl php7.4-dba php7.4-dev php7.4-enchant php7.4-fpm php7.4-gd php7.4-gmp php7.4-imap php7.4-interbase php7.4-intl php7.4-json php7.4-ldap php7.4-mbstring php7.4-mysql php7.4-odbc php7.4-opcache php7.4-pgsql php7.4-phpdbg php7.4-pspell php7.4-readline php7.4-snmp php7.4-soap php7.4-sqlite3 php7.4-sybase php7.4-tidy php7.4-xml php7.4-xmlrpc php7.4-xsl php7.4-zip
+#   sudo apt install imagick php-bcmath php-bz2 php-cgi php-cli php-common php-curl php-dba php-dev php-enchant php-fpm php-gd php-gmp php-imap php-interbase php-intl php-json php-ldap php-mbstring php-mysql php-odbc php-opcache php-pgsql php-phpdbg php-pspell php-readline php-snmp php-soap php-sqlite3 php-sybase php-tidy php-xml php-xmlrpc php-xsl php-zip
 #
 # You should secure Apache with Let's Encrypt. Install Cerbot:
 #
